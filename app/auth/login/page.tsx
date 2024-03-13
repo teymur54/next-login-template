@@ -1,10 +1,10 @@
 "use client";
 import { signIn } from "next-auth/react";
-import { useRef, useState } from "react";
+import { useState } from "react";
 
 const LoginPage = () => {
-  const [username, setUsername] = useState("");
-  const [pass, setPass] = useState("");
+  const [username, setUsername] = useState<string>("");
+  const [pass, setPass] = useState<string>("");
 
   const onSubmit = async () => {
     const result = await signIn("credentials", {

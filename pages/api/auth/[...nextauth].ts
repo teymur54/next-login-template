@@ -1,6 +1,7 @@
 import CredentialsProvider from "next-auth/providers/credentials";
 import NextAuth from "next-auth/next";
 import type { NextAuthOptions } from "next-auth";
+import axios from "axios";
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -10,23 +11,24 @@ export const authOptions: NextAuthOptions = {
         username: { label: "Username", type: "text", placeholder: "jsmith" },
         password: { label: "Password", type: "password" },
       },
-      async authorize(credentials, req) {
-        const { username, password } = credentials as any;
-        const res = await fetch("http://10.14.33.87:8080/api/auth/login", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            username,
-            password,
-          }),
-        });
+      async authorize(credentials) {
+        try {
+          const res = await axios.post(
+            "http://10.14.33.87:8080/api/auth/login",
+            {
+              username: credentials?.username,
+              password: credentials?.password,
+            }
+          );
 
-        const user = await res.json();
-        if (res.ok && user) {
-          return user;
-        } else return null;
+          const user = res.data;
+
+          if (res.status === 200 && user) {
+            return user;
+          } else return null;
+        } catch (error) {
+          return null;
+        }
       },
     }),
   ],
