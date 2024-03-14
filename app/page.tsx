@@ -9,20 +9,16 @@ const HomePage = () => {
   const [letter, setLetter] = useState<Letter | null>(null);
 
   const fetchPosts = async () => {
-    try {
-      const response = await axios.get(
-        "http://10.14.33.87:8080/api/v1/letter/no/1",
-        {
-          headers: {
-            authorization: `Bearer ${session?.user.jwt}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      setLetter(response.data);
-    } catch (error) {
-      console.error(error);
-    }
+    const response = await axios.get(
+      "http://172.16.4.160:8080/api/v1/letter/no/2",
+      {
+        headers: {
+          authorization: `Bearer ${session?.user.jwt}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    setLetter(response.data);
   };
 
   return (

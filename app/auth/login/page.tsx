@@ -25,13 +25,17 @@ const LoginPage = () => {
         <input
           type="text"
           value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setUsername(e.target.value)
+          }
         />
         <label>Password</label>
         <input
           type="password"
           value={pass}
-          onChange={(e) => setPass(e.target.value)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setPass(e.target.value)
+          }
         />
         <button onClick={onSubmit}>Login</button>
       </div>
